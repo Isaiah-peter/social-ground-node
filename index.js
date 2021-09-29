@@ -41,14 +41,6 @@ io.on("connection", (socket) => {
     });
   });
 
-  socket.on("sendMessageToGroup", ({ senderId, receiverId, text }) => {
-    const user = getUser(receiverId);
-    io.to(user.socketId).emit("getMessageinGroup", {
-      senderId,
-      text,
-    });
-  });
-
   socket.on("disconnect", () => {
     console.log("someone disconnect");
     removeUser(socket.id);
