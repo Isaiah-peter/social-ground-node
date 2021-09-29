@@ -35,7 +35,15 @@ io.on("connection", (socket) => {
     const user = getUser(receiverId);
     console.log(user, "single user");
     console.log(users, "sendMessage");
-    io.to(user.socketId).emit("getMessage", {
+    io.to(user.senderId).emit("getMessage", {
+      senderId,
+      text,
+    });
+  });
+
+  socket.on("sendMessageToGroup", ({ senderId, receiverId, text }) => {
+    const user = getUser(receiverId);
+    io.to(user.socketId).emit("getMessageinGroup", {
       senderId,
       text,
     });
